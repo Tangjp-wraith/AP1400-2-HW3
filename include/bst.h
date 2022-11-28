@@ -26,6 +26,7 @@ public:
     Node** find_parrent(int value);
     Node** find_successor(int value);
     bool delete_node(int value);
+    friend std::ostream& operator<<(std::ostream* os,const BST& bst);
 
     // Operators
     const BST& operator++() const;
@@ -53,7 +54,6 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const BST::Node& node);
 
-    // Public member variables:
     int value;
     Node* left;
     Node* right;
