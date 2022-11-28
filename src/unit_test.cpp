@@ -134,18 +134,18 @@ TEST(HW3Test, TEST10) {
     EXPECT_EQ(bst.length(), 6);
 }
 
-// TEST(HW3Test, TEST11) {
-//     BST bst{};
-//     bst.add_node(25);
-//     bst.add_node(10);
-//     bst.add_node(50);
-//     bst.add_node(53);
-//     bst.add_node(15);
-//     bst.add_node(7);
+TEST(HW3Test, TEST11) {
+    BST bst{};
+    bst.add_node(25);
+    bst.add_node(10);
+    bst.add_node(50);
+    bst.add_node(53);
+    bst.add_node(15);
+    bst.add_node(7);
 
-//     std::cout << "PRINT A BINARY SEARCH TREE" << std::endl;
-//     std::cout << bst << std::endl;
-// }
+    std::cout << "PRINT A BINARY SEARCH TREE" << std::endl;
+    std::cout << bst << std::endl;
+}
 
 TEST(HW3Test, TEST12) {
     BST bst{};
@@ -162,52 +162,52 @@ TEST(HW3Test, TEST12) {
     EXPECT_EQ((*node)->right->value, 15);
 }
 
-// TEST(HW3Test, TEST13) {
-//     BST bst{};
-//     bst.add_node(25);
-//     bst.add_node(10);
-//     bst.add_node(50);
-//     bst.add_node(53);
-//     bst.add_node(15);
-//     bst.add_node(7);
+TEST(HW3Test, TEST13) {
+    BST bst{};
+    bst.add_node(25);
+    bst.add_node(10);
+    bst.add_node(50);
+    bst.add_node(53);
+    bst.add_node(15);
+    bst.add_node(7);
     
-//     BST::Node** node{bst.find_node(11)};
-//     EXPECT_EQ(node, nullptr);
-// }
+    BST::Node** node{bst.find_node(11)};
+    EXPECT_EQ(node, nullptr);
+}
 
-// TEST(HW3Test, TEST14) {
-//     BST bst{};
-//     bst.add_node(25);
-//     bst.add_node(10);
-//     bst.add_node(50);
-//     bst.add_node(53);
-//     bst.add_node(15);
-//     bst.add_node(7);
+TEST(HW3Test, TEST14) {
+    BST bst{};
+    bst.add_node(25);
+    bst.add_node(10);
+    bst.add_node(50);
+    bst.add_node(53);
+    bst.add_node(15);
+    bst.add_node(7);
     
-//     std::cout << "here" << std::endl;
-//     BST::Node** node{bst.find_parrent(15)};
-//     std::cout << "here2" << std::endl;
-//     EXPECT_EQ((*node)->value, 10);
-//     EXPECT_EQ((*node)->left->value, 7);
-//     EXPECT_EQ((*node)->right->value, 15);
-// }
+    std::cout << "here" << std::endl;
+    BST::Node** node{bst.find_parrent(15)};
+    std::cout << "here2" << std::endl;
+    EXPECT_EQ((*node)->value, 10);
+    EXPECT_EQ((*node)->left->value, 7);
+    EXPECT_EQ((*node)->right->value, 15);
+}
 
-// TEST(HW3Test, TEST15) {
-//     BST bst{};
-//     bst.add_node(25);
-//     bst.add_node(10);
-//     bst.add_node(50);
-//     bst.add_node(53);
-//     bst.add_node(15);
-//     bst.add_node(7);
-//     bst.add_node(8);
-//     bst.add_node(9);
-    
-//     BST::Node** node{bst.find_successor(10)};
-//     EXPECT_EQ((*node)->value, 9);
-//     EXPECT_EQ((*node)->left, nullptr);
-//     EXPECT_EQ((*node)->right, nullptr);
-// }
+TEST(HW3Test, TEST15) {
+    BST bst{};
+    bst.add_node(25);
+    bst.add_node(10);
+    bst.add_node(50);
+    bst.add_node(53);
+    bst.add_node(15);
+    bst.add_node(7);
+    bst.add_node(8);
+    bst.add_node(9);
+
+    BST::Node** node{bst.find_successor(10)};
+    EXPECT_EQ((*node)->value, 15);
+    EXPECT_EQ((*node)->left, nullptr);
+    EXPECT_EQ((*node)->right, nullptr);
+}
 
 // TEST(HW3Test, TEST16) {
 //     BST bst{};
@@ -385,85 +385,85 @@ TEST(HW3Test, TEST12) {
 //     EXPECT_EQ(bst.get_root()->left->right->right, nullptr);
 // }
 
-// TEST(HW3Test, TEST24) {
-//     BST bst{};
-//     bst.add_node(5);
-//     bst.add_node(10);
-//     bst.add_node(50);
-//     BST copy{bst};
-//     EXPECT_EQ(bst.length(), copy.length());
-//     EXPECT_EQ(bst.get_root()->right->value, copy.get_root()->right->value);
-// }
+TEST(HW3Test, TEST24) {
+    BST bst{};
+    bst.add_node(5);
+    bst.add_node(10);
+    bst.add_node(50);
+    BST copy{bst};
+    EXPECT_EQ(bst.length(), copy.length());
+    EXPECT_EQ(bst.get_root()->right->value, copy.get_root()->right->value);
+}
 
-// TEST(HW3Test, TEST25) {
-//     BST bst{};
-//     bst.add_node(5);
-//     bst.add_node(10);
-//     bst.add_node(50);
+TEST(HW3Test, TEST25) {
+    BST bst{};
+    bst.add_node(5);
+    bst.add_node(10);
+    bst.add_node(50);
     
-//     BST equal{};
-//     bst.add_node(51);
-//     bst.add_node(66);
-//     bst.add_node(10);
-//     equal = bst;
-//     EXPECT_EQ(bst.length(), equal.length());
-//     EXPECT_EQ(bst.get_root()->right->right->value, equal.get_root()->right->right->value);
-// }
+    BST equal{};
+    bst.add_node(51);
+    bst.add_node(66);
+    bst.add_node(10);
+    equal = bst;
+    EXPECT_EQ(bst.length(), equal.length());
+    EXPECT_EQ(bst.get_root()->right->right->value, equal.get_root()->right->right->value);
+}
 
-// TEST(HW3Test, TEST26) {
-//     BST bst{};
-//     bst.add_node(5);
-//     bst.add_node(10);
-//     bst.add_node(50);
-//     bst.add_node(1);
-//     bst.add_node(2);
-//     bst.add_node(4);
-//     bst.add_node(60);
-//     bst.add_node(8);
+TEST(HW3Test, TEST26) {
+    BST bst{};
+    bst.add_node(5);
+    bst.add_node(10);
+    bst.add_node(50);
+    bst.add_node(1);
+    bst.add_node(2);
+    bst.add_node(4);
+    bst.add_node(60);
+    bst.add_node(8);
     
-//     bst = bst;
-//     EXPECT_EQ(bst.get_root()->right->left->value, 8);
-// }
+    bst = bst;
+    EXPECT_EQ(bst.get_root()->right->left->value, 8);
+}
 
-// TEST(HW3Test, TEST27) {
-//     BST bst{};
-//     bst.add_node(5);
-//     bst.add_node(10);
-//     bst.add_node(50);
+TEST(HW3Test, TEST27) {
+    BST bst{};
+    bst.add_node(5);
+    bst.add_node(10);
+    bst.add_node(50);
     
-//     int test_value{bst.get_root()->right->value};
-//     BST::Node* adddress_of_root{*bst.find_node(5)};
+    int test_value{bst.get_root()->right->value};
+    BST::Node* adddress_of_root{*bst.find_node(5)};
 
-//     BST move{std::move(bst)};
-//     EXPECT_EQ(adddress_of_root, move.get_root());
-//     EXPECT_EQ(test_value, move.get_root()->right->value);
-// }
+    BST move{std::move(bst)};
+    EXPECT_EQ(adddress_of_root, move.get_root());
+    EXPECT_EQ(test_value, move.get_root()->right->value);
+}
 
-// TEST(HW3Test, TEST28) {
-//     BST bst{};
-//     bst.add_node(25);
-//     bst.add_node(10);
-//     bst.add_node(50);
-//     bst.add_node(65);
-//     bst.add_node(5);
-//     bst.add_node(20);
-//     bst.add_node(22);
+TEST(HW3Test, TEST28) {
+    BST bst{};
+    bst.add_node(25);
+    bst.add_node(10);
+    bst.add_node(50);
+    bst.add_node(65);
+    bst.add_node(5);
+    bst.add_node(20);
+    bst.add_node(22);
     
-//     int test_value{bst.get_root()->left->right->value};
-//     BST::Node* adddress_of_root{*bst.find_node(25)};
+    int test_value{bst.get_root()->left->right->value};
+    BST::Node* adddress_of_root{*bst.find_node(25)};
 
-//     BST move{};
-//     move = std::move(bst);
-//     EXPECT_EQ(adddress_of_root, move.get_root());
-//     EXPECT_EQ(test_value, move.get_root()->left->right->value);
-// }
+    BST move{};
+    move = std::move(bst);
+    EXPECT_EQ(adddress_of_root, move.get_root());
+    EXPECT_EQ(test_value, move.get_root()->left->right->value);
+}
 
-// TEST(HW3Test, TEST29) {
-//     BST bst1{5, 1, 10, 2, 8, 50, 4, 60};
-//     BST bst2{3, 2, 100, 20, 8, 50, 4, 60, 44, 23};
-//     EXPECT_EQ((*bst1.find_successor(5))->value, 4);
-//     EXPECT_EQ(bst2.length(), 10);
-// }
+TEST(HW3Test, TEST29) {
+    BST bst1{5, 1, 10, 2, 8, 50, 4, 60};
+    BST bst2{3, 2, 100, 20, 8, 50, 4, 60, 44, 23};
+    EXPECT_EQ((*bst1.find_successor(5))->value, 8);
+    EXPECT_EQ(bst2.length(), 10);
+}
 
 // TEST(HW3Test, TEST30) {
 //     BST bst{5, 1, 10, 2, 8, 50, 4, 60};

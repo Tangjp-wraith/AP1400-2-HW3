@@ -1,5 +1,8 @@
 #include "bst.h"
 #include<queue>
+#include<vector>
+#include<iostream>
+#include<stack>
 
 // BST::Node 
 
@@ -126,7 +129,7 @@ bool BST::add_node(int _value){
     return false;
 }
 
-std::ostream& operator<<(std::ostream& os,const BST& bst){
+std::ostream& operator<<(std::ostream& os,BST& bst){
     os << std::string(80, '*') << std::endl;
     std::queue<BST::Node*> nodes;
     bst.bfs([&nodes](BST::Node*& node) {
@@ -141,6 +144,102 @@ std::ostream& operator<<(std::ostream& os,const BST& bst){
     return os;
 }
 
-BST::Node** find_node(int _value){
+BST::Node** BST::find_node(int _value){
+    BST::Node* node_ptr{root};
+    while(true){
+        if(_value==node_ptr->value){
+            break;
+        }else if(_value<node_ptr->value){
+            if(node_ptr->left==nullptr){
+                return nullptr;
+            }
+            node_ptr=node_ptr->left;
+        }else{
+            if(node_ptr->right==nullptr){
+                return nullptr;
+            }
+            node_ptr=node_ptr->right;
+        }
+    }
+    BST::Node** node{new BST::Node*(node_ptr)};
+    return node;
+}
 
+BST::Node** BST::find_parrent(int _value){
+    BST::Node* node_ptr1{root};
+    BST::Node* node_ptr2{root};
+    while(true){
+        if(_value==node_ptr1->value){
+            break;
+        }else if(_value<node_ptr1->value){
+            if(node_ptr1->left==nullptr){
+                return nullptr;
+            }
+            node_ptr2=node_ptr1;
+            node_ptr1=node_ptr1->left;
+        }else{
+            if(node_ptr1->right==nullptr){
+                return nullptr;
+            }
+            node_ptr2=node_ptr1;
+            node_ptr1=node_ptr1->right;
+        }
+    }
+    BST::Node** node{new BST::Node*(node_ptr2)};
+    return node;
+}
+
+std::vector<BST::Node*> _Inorder_(BST::Node* root,std::vector<BST::Node*> vec){
+    std::stack<BST::Node*> st;
+    BST::Node* node_ptr{root};
+    while(node_ptr!=nullptr||!st.empty()){
+        while(node_ptr!=nullptr){
+            st.push(node_ptr);
+            node_ptr=node_ptr->left;
+        }
+        if(!st.empty()){
+            node_ptr=st.top();
+            vec.push_back(node_ptr);
+            st.pop();
+            node_ptr=node_ptr->right;
+        }
+    }
+    return vec;
+}
+
+BST::Node** BST::find_successor(int _value){
+    std::vector<BST::Node*> vec;
+    vec=_Inorder_(root,vec);
+    // for(auto& v:vec){std::cout<<*v<<std::endl;}
+    for(int i=0;i<vec.size();i++){
+        if(vec[i]->value==_value){
+            BST::Node** node{new BST::Node*(vec[i+1])};
+            return node;
+        }
+    }
+    return nullptr;
+}   
+
+bool BST::delete_node(int _value){
+
+}
+
+const BST& BST::operator++() const{
+
+}
+
+const BST BST::operator++(int) const{
+    BST _bst{*this};
+    ++*this;
+    return _bst;
+}
+
+BST& BST::operator=(const BST& bst){
+    
+}
+
+BST& BST::operator=(BST&& bst){
+    root=bst.root;
+    bst.root=nullptr;
+    return *this;
 }

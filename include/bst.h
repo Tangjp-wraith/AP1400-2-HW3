@@ -18,6 +18,7 @@ public:
     ~BST(); // destructor
 
     // Methods
+    friend std::ostream& operator<<(std::ostream& os,BST& bst);
     Node*& get_root();
     void bfs(std::function<void(Node*& node)> func)const;
     size_t length()const;
@@ -26,7 +27,6 @@ public:
     Node** find_parrent(int value);
     Node** find_successor(int value);
     bool delete_node(int value);
-    friend std::ostream& operator<<(std::ostream* os,const BST& bst);
 
     // Operators
     const BST& operator++() const;
@@ -37,7 +37,6 @@ public:
 private:
     Node* root;
 };  
-
 class BST::Node
 {
 public:
@@ -51,9 +50,8 @@ public:
     bool operator==(const int& _value) const { return value == _value; }
     // Node& operator=(const Node& node); // Node operator = copy version
     // Node& operator=(Node&& node); // Node operator = move version
-
     friend std::ostream& operator<<(std::ostream& os, const BST::Node& node);
-
+    
     int value;
     Node* left;
     Node* right;
