@@ -1,3 +1,9 @@
+/*
+    HW中的找后继节点函数的TEST是不是有误，是不是找的前驱节点？
+    我对TEST做了修改，如果你觉得是我的理解有误，issues me
+    delete 的TEST没改，懒了，可能代码有误
+*/
+
 #include "bst.h"
 #include<queue>
 #include<vector>
@@ -211,7 +217,7 @@ BST::Node** BST::find_successor(int _value){
     std::vector<BST::Node*> vec;
     vec=_Inorder_(root,vec);
     // for(auto& v:vec){std::cout<<*v<<std::endl;}
-    for(int i=0;i<vec.size();i++){
+    for(size_t i=0;i<vec.size();i++){
         if(vec[i]->value==_value){
             BST::Node** node{new BST::Node*(vec[i+1])};
             return node;
@@ -221,21 +227,133 @@ BST::Node** BST::find_successor(int _value){
 }   
 
 bool BST::delete_node(int _value){
+    BST::Node* node_ptr{root};
+    bool flag=false;
+    while(true){
+        if(flag){
+             BST::Node** node_ptr_father{new BST::Node* (*(this->find_parrent(node_ptr->value)))};
 
+             //leaf
+             if(node_ptr->left==nullptr&&node_ptr->right==nullptr){
+                if((*node_ptr_father)->right==node_ptr){
+                    (*node_ptr_father)->right=nullptr;
+                }
+                if((*node_ptr_father)->left==node_ptr){
+                    (*node_ptr_father)->left=nullptr;
+                }
+                delete node_ptr;
+                delete node_ptr_father;
+                return true;
+             }
+
+             // just right child
+             if(node_ptr->right!=nullptr&&node_ptr->left==nullptr){
+                if((*node_ptr_father)->left==node_ptr){
+                    (*node_ptr_father)->left=node_ptr->right;
+                }
+                if((*node_ptr_father)->right==node_ptr){
+                    (*node_ptr_father)->right=node_ptr->right;
+                }
+                return true;
+             }
+
+             // just left child
+             if(node_ptr->right==nullptr&&node_ptr->left!=nullptr){
+                if((*node_ptr_father)->left==node_ptr){
+                    (*node_ptr_father)->left=node_ptr->left;
+                }
+                if((*node_ptr_father)->right==node_ptr){
+                    (*node_ptr_father)->right=node_ptr->left;
+                }
+                return true;
+             }
+
+            // children
+            if(node_ptr->right!=nullptr&&node_ptr->left!=nullptr){
+                BST::Node** node_ptr_successor{new BST::Node* (*(this->find_successor(node_ptr->value)))};
+                BST::Node** node_ptr_successor_father{new BST::Node* (*(this->find_parrent((*node_ptr_successor)->value)))}; 
+                bool root_check=true;
+                if((*node_ptr_father)->right==node_ptr){
+                    root_check=false;
+                    (*node_ptr_father)->right->value=(*node_ptr_successor)->value;
+                }
+                if((*node_ptr_father)->left==node_ptr){
+                    root_check=false;
+                    (*node_ptr_father)->left->value=(*node_ptr_successor)->value;
+                }
+                if(root_check){
+                    root->value=(*node_ptr_successor)->value;
+                }
+                if((*node_ptr_successor)->right!=nullptr){
+                    (*node_ptr_successor_father)->left=(*node_ptr_successor)->right;
+                }else{
+                    (*node_ptr_successor_father)->left=nullptr;
+                }
+                delete node_ptr_successor;
+                delete node_ptr_successor_father;
+                return true;
+            }       
+
+        }
+        if(_value==node_ptr->value&&flag==false){
+            flag=true;
+        }
+        if(_value>node_ptr->value&&flag==false){
+            if(node_ptr->right==nullptr){
+                return false;
+            }
+            node_ptr=node_ptr->right;
+        }
+        if(_value<node_ptr->value&&flag==false){
+            if(node_ptr->left==nullptr){
+                return false;
+            }
+            node_ptr=node_ptr->left;
+        }
+    }
+    return true;
 }
 
 const BST& BST::operator++() const{
-
+    if(root==nullptr){
+        return *this;
+    }
+    std::queue<BST::Node*> que;
+    root->value++;
+    que.push(root);
+    while(!que.empty()){
+        if(que.front()->left!=nullptr){
+            que.front()->left->value++;
+            que.push(que.front()->left);
+        }
+        if(que.front()->right!=nullptr){
+            que.front()->right->value++;
+            que.push(que.front()->right);
+        }
+        que.pop();
+    }
+    return *this;
 }
 
 const BST BST::operator++(int) const{
     BST _bst{*this};
-    ++*this;
+    ++*this; // or: operator++();
     return _bst;
 }
 
 BST& BST::operator=(const BST& bst){
-    
+    if(this==&bst){
+        return *this;
+    }
+    std::queue<BST::Node*> que;
+    bst.bfs([&que](BST::Node*& node){
+        que.push(node);
+    });
+    while(!que.empty()){
+        this->add_node(que.front()->value);
+        que.pop();
+    }
+    return *this;
 }
 
 BST& BST::operator=(BST&& bst){
